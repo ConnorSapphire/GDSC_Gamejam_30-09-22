@@ -4,7 +4,6 @@ import arcade
 from colours import Colours
 
 
-
 class Beat:
     def __init__(self, colour: Colours, lane: int) -> None:
         self.lane = lane

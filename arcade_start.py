@@ -10,14 +10,10 @@ If Python and Arcade are installed, this example can be run from the command lin
 python -m arcade.examples.starting_template
 """
 import arcade
-from Beat import Beat
-from Colours import Colours
-
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Starting Template"
-
-PLAYER_SCALING = 2
+import game_constants
+from beat import Beat
+from colours import Colours
+from player import Player
 
 
 class MyGame(arcade.Window):
@@ -36,31 +32,28 @@ class MyGame(arcade.Window):
 
         arcade.set_background_color(arcade.color.AMAZON)
 
-        # Player info
-        self.player_list = None
-        self.player_sprite = None
-
-        # Projectiles info
-        self.beat_list = None
+        # Scene
+        self.scene = None
 
     def setup(self):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
+        # Scene
+        self.scene = arcade.Scene()
+        self.scene.add_sprite_list("Player")
+        self.scene.add_sprite_list("Beats", use_spatial_hash=True)
+
         # Player setup
-        self.player_list = arcade.SpriteList()
-        self.player_sprite = arcade.Sprite(
-            "GDSC_Gamejam_30-09-22/sprites/tmp.png", PLAYER_SCALING)
-        self.player_sprite.center_x = 64
-        self.player_sprite.center_y = 128
-        self.player_list.append(self.player_sprite)
+        self.player = Player(3)
+        self.scene.add_sprite("Player", self.player.sprite)
 
         # Testing area
         self.beat_list = arcade.SpriteList()
         self.test_beat = Beat(Colours.BLUE, 0)
         self.test_beat2 = Beat(Colours.BLUE, 2)
-        self.beat_list.append(self.test_beat.sprite)
-        self.beat_list.append(self.test_beat2.sprite)
+        self.scene.add_sprite("Beats", self.test_beat.sprite)
+        self.scene.add_sprite("Beats", self.test_beat2.sprite)
 
     def on_draw(self):
         """
@@ -70,8 +63,7 @@ class MyGame(arcade.Window):
         # This command should happen before we start drawing. It will clear
         # the screen to the background color, and erase what we drew last frame.
         self.clear()
-        self.player_list.draw()
-        self.beat_list.draw()
+        self.scene.draw()
 
         # Call draw() on all your sprite lists below
 
@@ -118,7 +110,8 @@ class MyGame(arcade.Window):
 
 def main():
     """ Main function """
-    game = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    game = MyGame(game_constants.SCREEN_WIDTH,
+                  game_constants.SCREEN_HEIGHT, game_constants.SCREEN_TITLE)
     game.setup()
     arcade.run()
 

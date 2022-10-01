@@ -15,4 +15,4 @@ class BeatManager:
                              arcade.color.BLACK, 2)
 
     def create_beat(self, colour, lane):
-        return Beat(colour, lane)
+        return Beat(Colours.BLUE, 1, colour, lane)

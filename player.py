@@ -9,6 +9,6 @@ class Player:
         self.sprite_y = 40
         self.sprite_x = game_constants.LANE_START + game_constants.LANE_SIZE * lane
 
-        self.sprite = arcade.Sprite("GDSC_Gamejam_30-09-22/sprites/tmp_player.png", game_constants.PLAYER_SCALING)
+        self.sprite = arcade.Sprite("./sprites/tmp_player.png", game_constants.PLAYER_SCALING)
         self.sprite.center_x = self.sprite_x
         self.sprite.center_y = self.sprite_y

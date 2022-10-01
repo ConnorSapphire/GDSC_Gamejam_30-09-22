@@ -13,6 +13,7 @@ NUM_LANES = 5
 PLAYER_START_Y = 400
 
 PLAYER_MOVEMENT_SPEED = 5
+BEAT_SPEED = 0.5
 
 # Colours
 # In pixels

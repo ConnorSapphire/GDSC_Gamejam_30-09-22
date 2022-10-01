@@ -11,12 +11,10 @@ class Beat:
 
         # WARNING magic number
         self.sprite_y = constants.SCREEN_HEIGHT - 40
-        self.sprite_x = constants.LANE_START + constants.LANE_SIZE * lane
+        self.sprite_x = constants.LANE_START + constants.LANE_SIZE * lane - constants.LANE_SIZE
 
         self.sprite = arcade.Sprite(colour.value, constants.BEAT_SCALING)
         self.sprite.center_x = self.sprite_x
         self.sprite.center_y = self.sprite_y
 
-    def update(self):
-        print("update")
-        self.sprite.center_y -= constants.BEAT_SPEED
+        self.sprite.velocity = (0, -constants.BEAT_SPEED)

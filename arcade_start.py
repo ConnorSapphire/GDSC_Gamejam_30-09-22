@@ -41,6 +41,8 @@ class MyGame(arcade.Window):
         # Physics/movement
         self.physics_engine = None
 
+        self.beat_manager = BeatManager()
+
     def setup(self):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
@@ -55,12 +57,11 @@ class MyGame(arcade.Window):
         self.scene.add_sprite("Player", self.player.sprite)
 
         # Testing area
-        self.test_beat = Beat(Colours.BLUE, 0)
-        self.test_beat2 = Beat(Colours.BLUE, 2)
-        self.test_beat.sprite.velocity = (0, -constants.BEAT_SPEED)
-        self.test_beat2.sprite.velocity = (0, -constants.BEAT_SPEED)
-        self.scene.add_sprite("Beats", self.test_beat.sprite)
-        self.scene.add_sprite("Beats", self.test_beat2.sprite)
+
+        # Testing initial random seleciton of beats
+        for i in range(3):
+            self.scene.add_sprite("Beats", self.beat_manager.create_beat(
+                Colours.BLUE, random.randint(1, constants.NUM_LANES)).sprite)
 
         # Physics engine
         # NOTE has to go after everything else is initialised

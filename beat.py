@@ -16,3 +16,10 @@ class Beat:
         self.sprite = arcade.Sprite(colour.value, game_constants.BEAT_SCALING)
         self.sprite.center_x = self.sprite_x
         self.sprite.center_y = self.sprite_y
+    
+    def update(self):
+        self.sprite_y -= 1
+        self.sprite.center_y = self.sprite_y
+
+        if self.sprite_y < 0:
+            self.sprite.kill()

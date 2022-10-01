@@ -57,6 +57,8 @@ class MyGame(arcade.Window):
         # Testing area
         self.test_beat = Beat(Colours.BLUE, 0)
         self.test_beat2 = Beat(Colours.BLUE, 2)
+        self.test_beat.sprite.velocity = (0, -constants.BEAT_SPEED)
+        self.test_beat2.sprite.velocity = (0, -constants.BEAT_SPEED)
         self.scene.add_sprite("Beats", self.test_beat.sprite)
         self.scene.add_sprite("Beats", self.test_beat2.sprite)
 
@@ -71,9 +73,7 @@ class MyGame(arcade.Window):
         """
         Render the screen.
         """
-        # This command should happen before we start drawing. It will clear
-        # the screen to the background color, and erase what we drew last frame.
-
+        # Clears the previous frame
         self.clear()
 
         # Call draw() on all your sprite lists below
@@ -88,17 +88,8 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-        # print(self.scene)
-        # self.scene.update(["Beats"])
-
-        for beat in self.scene.get_sprite_list("Beats"):
-            beat.center_y -= constants.BEAT_SPEED
-
+        self.scene.update(["Beats"])
         self.physics_engine.update()
-
-        # TODO
-        # Selects a random lane for the beat to spawn in. It continues to move down until reaching a certain x/y,
-        # at which point it is removed from the list.
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""

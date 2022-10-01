@@ -18,4 +18,5 @@ class Beat:
         self.sprite.center_y = self.sprite_y
 
     def update(self):
+        print("update")
         self.sprite.center_y -= constants.BEAT_SPEED

@@ -1,3 +1,4 @@
+from sqlite3 import complete_statement
 import constants
 import arcade
 
@@ -8,8 +9,7 @@ class Player(arcade.Sprite):
 
         self.lane = lane
 
-        # WARNING magic number
-        self.sprite_y = 40
+        self.sprite_y = constants.PLAYER_START_Y
         self.sprite_x = constants.LANE_START + constants.LANE_SIZE * lane
 
         # self.sprite = arcade.Sprite(

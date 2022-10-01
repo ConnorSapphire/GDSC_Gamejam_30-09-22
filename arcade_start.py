@@ -81,6 +81,7 @@ class MyGame(arcade.Window):
 
         # Draws the lanes for the beats to spawn in
         self.beat_manager.draw_lanes()
+        self.beat_manager.draw_perfect_line()
         self.scene.draw()
 
     def on_update(self, delta_time):
@@ -90,24 +91,26 @@ class MyGame(arcade.Window):
         need it.
         """
 
-        # beats_list = self.scene.get_sprite_list("Beats")
-        # for beat in beats_list:
-        #     if beat.center_y < 200:
-        #         beats_list.pop(beats_list.index(beat))
-        #         self.scene.remove_sprite_list_by_name("Beats")
-        #         self.scene.add_sprite_list("Beats", beats_list)
-
         self.scene.update()
-        self.physics_engine.update()
+        # self.physics_engine.update()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
+        beats = self.scene.get_sprite_list("Beats")
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
-            pass
+            if (beats.__len__() > 0):
+                hit_score = beats.pop(0).hit()
+                if (hit_score > 0):
+                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
+                    pass
         elif key == arcade.key.DOWN or key == arcade.key.S:
-            pass
+            if (beats.__len__() > 0):
+                hit_score = beats.pop(0).hit()
+                if (hit_score > 0):
+                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
+                    pass
         elif key == arcade.key.LEFT or key == arcade.key.A:
             self.player.change_lane(-1)
         elif key == arcade.key.RIGHT or key == arcade.key.D:
@@ -131,6 +134,7 @@ def main():
     game = MyGame(constants.SCREEN_WIDTH,
                   constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
     game.setup()
+    game.set_update_rate(1/constants.FPS)
     arcade.run()
 
 

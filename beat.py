@@ -1,7 +1,7 @@
 import game_constants
 import arcade
 
-from Colours import Colours
+from colours import Colours
 
 
 class Beat:

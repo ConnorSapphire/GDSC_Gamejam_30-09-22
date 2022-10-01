@@ -30,8 +30,6 @@ class MyGame(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
-        # If you have sprite lists, you should create them here,
-        # and set them to None
 
         arcade.set_background_color(arcade.color.AMAZON)
 
@@ -41,11 +39,12 @@ class MyGame(arcade.Window):
         # Physics/movement
         self.physics_engine = None
 
-        self.beat_manager = BeatManager()
-
     def setup(self):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
+
+        # Logic management
+        self.beat_manager = BeatManager()
 
         # Scene
         self.scene = arcade.Scene()
@@ -53,20 +52,21 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list("Beats", use_spatial_hash=True)
 
         # Player setup
-        self.player = Player(3)
-        self.scene.add_sprite("Player", self.player.sprite)
+        self.player = Player("./sprites/tmp_player.png", constants.PLAYER_SCALING, 3)
+        self.scene.add_sprite("Player", self.player)
 
         # Testing area
 
         # Testing initial random seleciton of beats
         for i in range(3):
-            self.scene.add_sprite("Beats", self.beat_manager.create_beat(
-                Colours.BLUE, random.randint(1, constants.NUM_LANES)).sprite)
+            # Lanes indexed at 0
+            beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
+            self.scene.add_sprite("Beats", beat_to_add)
 
         # Physics engine
         # NOTE has to go after everything else is initialised
         self.physics_engine = arcade.PhysicsEngineSimple(
-            self.player.sprite, self.scene.get_sprite_list("Beats"))
+            self.player, self.scene.get_sprite_list("Beats"))
 
         self.beat_manager = BeatManager()
 
@@ -89,50 +89,41 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-        self.scene.update(["Beats"])
+
+        # beats_list = self.scene.get_sprite_list("Beats")
+        # for beat in beats_list:
+        #     if beat.center_y < 200:
+        #         beats_list.pop(beats_list.index(beat))
+        #         self.scene.remove_sprite_list_by_name("Beats")
+        #         self.scene.add_sprite_list("Beats", beats_list)
+
+        self.scene.update()
         self.physics_engine.update()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
+        # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
-            self.player.sprite.change_y = constants.PLAYER_MOVEMENT_SPEED
+            pass
         elif key == arcade.key.DOWN or key == arcade.key.S:
-            self.player.sprite.change_y = -constants.PLAYER_MOVEMENT_SPEED
+            pass
         elif key == arcade.key.LEFT or key == arcade.key.A:
-            self.player.sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
+            self.player.change_lane(-1)
         elif key == arcade.key.RIGHT or key == arcade.key.D:
-            self.player.sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
+            self.player.change_lane(1)
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key."""
 
         if key == arcade.key.UP or key == arcade.key.W:
-            self.player.sprite.change_y = 0
+            pass
         elif key == arcade.key.DOWN or key == arcade.key.S:
-            self.player.sprite.change_y = 0
+            pass
         elif key == arcade.key.LEFT or key == arcade.key.A:
-            self.player.sprite.change_x = 0
+            pass
         elif key == arcade.key.RIGHT or key == arcade.key.D:
-            self.player.sprite.change_x = 0
-
-    def on_mouse_motion(self, x, y, delta_x, delta_y):
-        """
-        Called whenever the mouse moves.
-        """
-        pass
-
-    def on_mouse_press(self, x, y, button, key_modifiers):
-        """
-        Called when the user presses a mouse button.
-        """
-        pass
-
-    def on_mouse_release(self, x, y, button, key_modifiers):
-        """
-        Called when a user releases a mouse button.
-        """
-        pass
+            pass
 
 
 def main():

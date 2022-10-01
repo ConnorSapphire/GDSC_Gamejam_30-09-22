@@ -9,11 +9,14 @@ template.
 If Python and Arcade are installed, this example can be run from the command line with:
 python -m arcade.examples.starting_template
 """
+from cgi import test
+import random
 import arcade
-import game_constants
+import constants
 from beat import Beat
 from colours import Colours
 from player import Player
+from beat_manager import BeatManager
 
 
 class MyGame(arcade.Window):
@@ -35,6 +38,11 @@ class MyGame(arcade.Window):
         # Scene
         self.scene = None
 
+        # Physics/movement
+        self.physics_engine = None
+
+        self.beat_manager = BeatManager()
+
     def setup(self):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
@@ -49,23 +57,31 @@ class MyGame(arcade.Window):
         self.scene.add_sprite("Player", self.player.sprite)
 
         # Testing area
-        self.beat_list = arcade.SpriteList()
-        self.test_beat = Beat(Colours.BLUE, 0)
-        self.test_beat2 = Beat(Colours.BLUE, 2)
-        self.scene.add_sprite("Beats", self.test_beat.sprite)
-        self.scene.add_sprite("Beats", self.test_beat2.sprite)
+
+        # Testing initial random seleciton of beats
+        for i in range(3):
+            self.scene.add_sprite("Beats", self.beat_manager.create_beat(
+                Colours.BLUE, random.randint(1, constants.NUM_LANES)).sprite)
+
+        # Physics engine
+        # NOTE has to go after everything else is initialised
+        self.physics_engine = arcade.PhysicsEngineSimple(
+            self.player.sprite, self.scene.get_sprite_list("Beats"))
+
+        self.beat_manager = BeatManager()
 
     def on_draw(self):
         """
         Render the screen.
         """
-
-        # This command should happen before we start drawing. It will clear
-        # the screen to the background color, and erase what we drew last frame.
+        # Clears the previous frame
         self.clear()
-        self.scene.draw()
 
         # Call draw() on all your sprite lists below
+
+        # Draws the lanes for the beats to spawn in
+        self.beat_manager.draw_lanes()
+        self.scene.draw()
 
     def on_update(self, delta_time):
         """
@@ -73,21 +89,32 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
+        self.scene.update(["Beats"])
+        self.physics_engine.update()
 
-    def on_key_press(self, key, key_modifiers):
-        """
-        Called whenever a key on the keyboard is pressed.
+    def on_key_press(self, key, modifiers):
+        """Called whenever a key is pressed."""
 
-        For a full list of keys, see:
-        https://api.arcade.academy/en/latest/arcade.key.html
-        """
-        print(key)
+        if key == arcade.key.UP or key == arcade.key.W:
+            self.player.sprite.change_y = constants.PLAYER_MOVEMENT_SPEED
+        elif key == arcade.key.DOWN or key == arcade.key.S:
+            self.player.sprite.change_y = -constants.PLAYER_MOVEMENT_SPEED
+        elif key == arcade.key.LEFT or key == arcade.key.A:
+            self.player.sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
+        elif key == arcade.key.RIGHT or key == arcade.key.D:
+            self.player.sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
 
-    def on_key_release(self, key, key_modifiers):
-        """
-        Called whenever the user lets off a previously pressed key.
-        """
-        pass
+    def on_key_release(self, key, modifiers):
+        """Called when the user releases a key."""
+
+        if key == arcade.key.UP or key == arcade.key.W:
+            self.player.sprite.change_y = 0
+        elif key == arcade.key.DOWN or key == arcade.key.S:
+            self.player.sprite.change_y = 0
+        elif key == arcade.key.LEFT or key == arcade.key.A:
+            self.player.sprite.change_x = 0
+        elif key == arcade.key.RIGHT or key == arcade.key.D:
+            self.player.sprite.change_x = 0
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """
@@ -110,8 +137,8 @@ class MyGame(arcade.Window):
 
 def main():
     """ Main function """
-    game = MyGame(game_constants.SCREEN_WIDTH,
-                  game_constants.SCREEN_HEIGHT, game_constants.SCREEN_TITLE)
+    game = MyGame(constants.SCREEN_WIDTH,
+                  constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
     game.setup()
     arcade.run()
 

@@ -1,30 +1,39 @@
-import pygame
-from pygame.locals import *
+import arcade
 
 # Initialise final static variables
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 FPS = 60
-BACKGROUND_COLOUR = (100, 100, 100)
+BACKGROUND_COLOUR = arcade.csscolor.LIGHT_GRAY
 GAME_NAME = "GAME JAM GAME"
 
-# Setup Pygame display 
-gameRunning = True
-clock = pygame.time.Clock()
-myScreen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption(GAME_NAME)
+class MyGame(arcade.Window):
+    '''Main application class'''
 
-# Pygame gameloop
-while gameRunning:
-    # Set FPS
-    clock.tick(FPS)
-    # Fill background
-    myScreen.fill(BACKGROUND_COLOUR)
-    # Update screen
-    pygame.display.update()
-    # Get input
-    for event in pygame.event.get():
-        # End game loop upon close button clicked
-        if event.type == pygame.QUIT:
-            # TODO: Setup save before close if needed
-            gameRunning = False
+    def __init__(self):
+
+        # Call the parent class and set up the window
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME)
+
+        arcade.set_background_color(BACKGROUND_COLOUR)
+
+    def setup(self):
+        """Set up the game here. Call this function to restart the game."""
+        pass
+
+    def on_draw(self):
+        """Render the screen."""
+
+        self.clear()
+        # Code to draw the screen goes here
+
+
+def main():
+    """Main function"""
+    window = MyGame()
+    window.setup()
+    arcade.run()
+
+
+if __name__ == "__main__":
+    main()

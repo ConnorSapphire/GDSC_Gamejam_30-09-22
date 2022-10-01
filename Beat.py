@@ -1,7 +1,7 @@
 import game_constants
 import arcade
 
-from colours import Colours
+from Colours import Colours
 
 
 

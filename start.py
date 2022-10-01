@@ -28,6 +28,7 @@ class MyGame(arcade.Window):
         # Code to draw the screen goes here
 
 
+
 def main():
     """Main function"""
     window = MyGame()

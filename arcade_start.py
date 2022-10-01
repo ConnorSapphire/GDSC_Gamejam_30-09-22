@@ -11,10 +11,11 @@ python -m arcade.examples.starting_template
 """
 import random
 import arcade
-import game_constants
+import constants
 from beat import Beat
 from colours import Colours
 from player import Player
+from beat_manager import BeatManager
 
 
 class MyGame(arcade.Window):
@@ -36,7 +37,6 @@ class MyGame(arcade.Window):
         # Scene
         self.scene = None
 
-
         # Physics/movement
         self.physics_engine = None
 
@@ -49,13 +49,9 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite_list("Beats", use_spatial_hash=True)
 
-
         # Player setup
         self.player = Player(3)
         self.scene.add_sprite("Player", self.player.sprite)
-        
-        # Physics engine
-        self.physics_engine = arcade.PhysicsEngineSimple(self.player.sprite, self.scene.get_sprite_list("Beats"))
 
         # Testing area
         self.beat_list = arcade.SpriteList()
@@ -64,17 +60,31 @@ class MyGame(arcade.Window):
         self.scene.add_sprite("Beats", self.test_beat.sprite)
         self.scene.add_sprite("Beats", self.test_beat2.sprite)
 
+        # Physics engine
+        # NOTE has to go after everything else is initialised
+        self.physics_engine = arcade.PhysicsEngineSimple(
+            self.player.sprite, self.scene.get_sprite_list("Beats"))
+
+        self.beat_manager = BeatManager()
+
     def on_draw(self):
         """
         Render the screen.
         """
-
         # This command should happen before we start drawing. It will clear
         # the screen to the background color, and erase what we drew last frame.
+
         self.clear()
+        
+        # Call draw() on all your sprite lists below
+
+        # Draws the lanes for the beats to spawn in
+        self.beat_manager.draw_lanes()
+
+
         self.scene.draw()
 
-        # Call draw() on all your sprite lists below
+
 
     def on_update(self, delta_time):
         """
@@ -88,18 +98,17 @@ class MyGame(arcade.Window):
         # Selects a random lane for the beat to spawn in. It continues to move down until reaching a certain x/y,
         # at which point it is removed from the list.
 
-
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
         if key == arcade.key.UP or key == arcade.key.W:
-            self.player.sprite.change_y = game_constants.PLAYER_MOVEMENT_SPEED
+            self.player.sprite.change_y = constants.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.DOWN or key == arcade.key.S:
-            self.player.sprite.change_y = -game_constants.PLAYER_MOVEMENT_SPEED
+            self.player.sprite.change_y = -constants.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.LEFT or key == arcade.key.A:
-            self.player.sprite.change_x = -game_constants.PLAYER_MOVEMENT_SPEED
+            self.player.sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT or key == arcade.key.D:
-            self.player.sprite.change_x = game_constants.PLAYER_MOVEMENT_SPEED
+            self.player.sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key."""
@@ -134,8 +143,8 @@ class MyGame(arcade.Window):
 
 def main():
     """ Main function """
-    game = MyGame(game_constants.SCREEN_WIDTH,
-                  game_constants.SCREEN_HEIGHT, game_constants.SCREEN_TITLE)
+    game = MyGame(constants.SCREEN_WIDTH,
+                  constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
     game.setup()
     arcade.run()
 

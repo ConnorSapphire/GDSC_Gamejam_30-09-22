@@ -14,7 +14,7 @@ class UserInterface:
            f"Move with the {constants.KEY_LEFT} and {constants.KEY_RIGHT} keys",
            f"Press {constants.KEY_BLUE} for blue, {constants.KEY_RED} for red, {constants.KEY_YELLOW} for yellow",
            f"Hit the notes when their centre lines up for a perfect hit!",
-           f"Combine buttons to hit new coloured beats. See the colour wheel for more info!",
+           f"Press buttons at the same time to hit new coloured beats. See the colour wheel for more info!",
            "Good luck!"
         ]
 

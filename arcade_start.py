@@ -46,14 +46,22 @@ class MyGame(arcade.Window):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
-        # self.beatmap = {9:(Colours.BLUE, 3), 5:(Colours.PURPLE, 2), 
-        #                 7:(Colours.RED, 1), 8:(Colours.GREEN, 1)}
         self.beatmap = {5:(Colours.BLUE, 3), 7:(Colours.RED, 2),
                         8:(Colours.YELLOW, 1), 9:(Colours.YELLOW, 1),
                         10:(Colours.BLUE, 4), 11:(Colours.RED, 3),
                         12:(Colours.YELLOW, 2),
                         13:(Colours.GREEN, 0), 15:(Colours.PURPLE, 1),
-                        17:(Colours.ORANGE, 1), 19:(Colours.BROWN, 1)}
+                        17:(Colours.ORANGE, 2), 19:(Colours.BROWN, 4), 
+                        20:(Colours.RED, 0), 21:(Colours.BLUE, 4), 
+                        22:(Colours.YELLOW, 2), 23:(Colours.BROWN, 2),
+                        24:(Colours.RED, 0), 25:(Colours.ORANGE, 0), 
+                        26:(Colours.BLUE, 4), 27:(Colours.PURPLE, 4), 
+                        28:(Colours.YELLOW, 2), 29:(Colours.GREEN, 2), 
+                        30:(Colours.BROWN, 1), 31:(Colours.BROWN, 3), 
+                        32:(Colours.ORANGE, 0), 33:(Colours.PURPLE, 1), 
+                        34:(Colours.ORANGE, 4), 35:(Colours.GREEN, 3), 
+                        36:(Colours.RED, 2), 37:(Colours.YELLOW, 2), 
+                        38:(Colours.BLUE, 2), 39:(Colours.BROWN, 2)}
 
         # Logic management
         self.beat_manager = BeatManager()

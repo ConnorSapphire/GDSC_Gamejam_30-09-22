@@ -1,5 +1,6 @@
 import constants
 import arcade
+import random
 from colours import Colours
 from beat import Beat
 from typing import List
@@ -22,5 +23,16 @@ class BeatManager:
     def draw_perfect_line(self) -> None:
         arcade.draw_line(0, constants.PERFECT_LINE_Y, constants.SCREEN_WIDTH, constants.PERFECT_LINE_Y, arcade.color.RED, 5)
 
-    def create_beat(self, colour: Colours, lane: int) -> None:
+    def create_beat(self, colour, lane):
         return Beat(colour, 1, colour, lane)
+
+
+    def update(self, conductor, beat_info):
+        # print(conductor.song_position)
+        # print(conductor.timing)
+
+        if conductor.song_position >= conductor.timing:
+            print(beat_info)
+            beat_to_add = self.create_beat(beat_info[0], beat_info[1])
+            # self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
+            return beat_to_add

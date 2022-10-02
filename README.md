@@ -45,9 +45,8 @@ So far we have:
 - Artwork: https://shubibubi.itch.io/
 - Music: https://www.youtube.com/watch?v=K_sk82MgSK8 
  
- ✍️ Authors
-@CindyU-beep: Cindy 
-@ConnorSapphire: Connor
-@Lyliux: Holly   
-@Zarlden Damon
-
+## ✍️ Authors <a name = "authors"></a>
+[@CindyU-beep](https://github.com/CindyU-beep): Cindy Um
+[@ConnorSapphire](https://github.com/ConnorSapphire): Connor Sapphire 
+[@lyliux](https://github.com/lyliux): Holly Trikilis
+[@Zarlden](https://github.com/Zarlden): Damon Lam 

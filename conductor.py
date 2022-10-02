@@ -30,14 +30,14 @@ class Conductor:
         self.set_new_note_timing(0)
 
     def set_new_note_timing(self, value):
-        self.timing = self.crotchet * ((9 + value) / 4)
+        self.timing = self.crotchet * ((value) / 4)
         self.wait_time = self.timing - constants.BEAT_WAIT
 
     def set_offset(self, offset):
         self.offset = offset
 
     def update_song_position(self):
-        self.song_position = self.song.get_stream_position(self.song_player) - self.offset
+        self.song_position = self.song.get_stream_position(self.song_player) + self.offset
         self.beat_counter = math.floor(self.song_position / self.crotchet)
 
     def play(self):

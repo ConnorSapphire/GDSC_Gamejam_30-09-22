@@ -1,7 +1,7 @@
 # Setup of the window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Starting Template"
+SCREEN_TITLE = "Paint Treble"
 FPS = 60
 
 PLAYER_SCALING = 2
@@ -16,6 +16,7 @@ PERFECT_LINE_SCALING = 1
 BEAT_LAYER = "Beats"
 PLAYER_LAYER = "Player"
 PERFECT_LINE_LAYER = "Perfect Line"
+UI_LAYER = "UI"
 
 # Relating to board/positions of things
 LANE_START = 200
@@ -29,8 +30,15 @@ BEAT_SPEED = 2
 BEAT_WAIT = 4
 
 # Relating to scoring
+KEYSTROKE_WAIT = 3
 PERFECT_SCORE = 5
 
 # Colours
-# In pixels
+BLUE = 1
+YELLOW = 2
+GREEN = 3
+RED = 4
+PURPLE = 5
+ORANGE = 6
+BROWN = 7
 SQUARE_BEAT_DIMS = 78

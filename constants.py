@@ -1,7 +1,7 @@
 # Setup of the window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Starting Template"
+SCREEN_TITLE = "Paint Treble"
 FPS = 60
 
 PLAYER_SCALING = 2
@@ -26,5 +26,11 @@ KEYSTROKE_WAIT = 3
 PERFECT_SCORE = 5
 
 # Colours
-# In pixels
+BLUE = 1
+YELLOW = 2
+GREEN = 3
+RED = 4
+PURPLE = 5
+ORANGE = 6
+BROWN = 7
 SQUARE_BEAT_DIMS = 78

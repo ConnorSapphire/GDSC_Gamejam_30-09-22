@@ -11,6 +11,7 @@ python -m arcade.examples.starting_template
 """
 from cgi import test
 import random
+import string
 import arcade
 import constants
 from beat import Beat
@@ -28,7 +29,7 @@ class MyGame(arcade.Window):
     with your own code. Don't leave 'pass' in this program.
     """
 
-    def __init__(self, width, height, title):
+    def __init__(self, width: int, height: int, title: string) -> None:
         super().__init__(width, height, title)
 
         arcade.set_background_color(arcade.color.AMAZON)
@@ -39,7 +40,7 @@ class MyGame(arcade.Window):
         # Physics/movement
         self.physics_engine = None
 
-    def setup(self):
+    def setup(self) -> None:
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
@@ -78,7 +79,7 @@ class MyGame(arcade.Window):
         # Scoring
         self.score = 0
 
-    def on_draw(self):
+    def on_draw(self) -> None:
         """
         Render the screen.
         """
@@ -92,7 +93,7 @@ class MyGame(arcade.Window):
         self.beat_manager.draw_perfect_line()
         self.scene.draw()
 
-    def on_update(self, delta_time):
+    def on_update(self, delta_time: float) -> None:
         """
         All the logic to move, and the game logic goes here.
         Normally, you'll call update() on the sprite lists that
@@ -120,38 +121,38 @@ class MyGame(arcade.Window):
         self.scene.update()
         # self.physics_engine.update()
 
-    def on_key_press(self, key, modifiers):
+    def on_key_press(self, key, modifiers) -> None:
         """Called whenever a key is pressed."""
         if key == arcade.key.LEFT:
             self.player.change_lane(-1)
         elif key == arcade.key.RIGHT:
             self.player.change_lane(1)
         if key == arcade.key.A:
-            self.hit_colour += 1
+            self.hit_colour += constants.BLUE
             self.is_wait = True
         if key == arcade.key.S:
-            self.hit_colour += 2
+            self.hit_colour += constants.YELLOW
             self.is_wait = True
         if key == arcade.key.D:
-            self.hit_colour += 3
+            self.hit_colour += constants.RED
             self.is_wait = True
         
 
 
-    def on_key_release(self, key, modifiers):
-        """Called when the user releases a key."""
+    # def on_key_release(self, key, modifiers):
+    #     """Called when the user releases a key."""
 
-        if key == arcade.key.UP or key == arcade.key.W:
-            pass
-        elif key == arcade.key.DOWN or key == arcade.key.S:
-            pass
-        elif key == arcade.key.LEFT or key == arcade.key.A:
-            pass
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
-            pass
+    #     if key == arcade.key.UP or key == arcade.key.W:
+    #         pass
+    #     elif key == arcade.key.DOWN or key == arcade.key.S:
+    #         pass
+    #     elif key == arcade.key.LEFT or key == arcade.key.A:
+    #         pass
+    #     elif key == arcade.key.RIGHT or key == arcade.key.D:
+    #         pass
 
 
-def main():
+def main() -> None:
     """ Main function """
     game = MyGame(constants.SCREEN_WIDTH,
                   constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)

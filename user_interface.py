@@ -29,11 +29,11 @@ class UserInterface:
             self.message_idx += 1
 
         if (self.should_display):
-            arcade.draw_text(self.messages[self.message_idx], 40, 40, arcade.color.BLACK, 12)
+            arcade.draw_text(self.messages[self.message_idx], 40, 40, arcade.color.WHITE, 20, font_name="Kenney Pixel")
 
 
 
-        print(f"start: {self.starttime}. Cur: {self.currenttime}. Elapsed: {self.elapsedtime}")
+        # print(f"start: {self.starttime}. Cur: {self.currenttime}. Elapsed: {self.elapsedtime}")
 
     # def stopwatch(self, duration: int) -> None:
     #     starttime = time.time()

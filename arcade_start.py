@@ -107,12 +107,13 @@ class MyGame(arcade.Window):
         # Call draw() on all your sprite lists below
 
         # Draws the lanes for the beats to spawn in
-        self.user_interface.tutorial()
 
         self.beat_manager.draw_lanes()
         #NOTE disabling for now -- aim to replace with a sprite
         # self.beat_manager.draw_perfect_line()
         self.scene.draw()
+        
+        self.user_interface.tutorial()
 
     def on_update(self, delta_time):
         """

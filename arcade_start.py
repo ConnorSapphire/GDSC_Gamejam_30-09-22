@@ -114,7 +114,8 @@ class MyGame(arcade.Window):
                 print("Perfect!")
                 for beat in pline_collisions:
                     if (type(beat) == Beat):
-                #WARNING WIP
+                        #WARNING WIP
+                        pass
                 self.scene.get_sprite_list(constants.BEAT_LAYER).remove(pline_collisions[0])
 
 

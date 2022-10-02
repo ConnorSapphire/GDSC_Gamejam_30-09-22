@@ -20,6 +20,14 @@ We learned so much! This was everyone's first time using Python Arcade, so we we
 ## What's next for Paint Treble
 If we decide to continue working on this project, I think we'd like to hone the art style to better represent the game. Incorporate new songs, and possibly divide the game into levels.
 
+## Tutorial
+Start the game using:
+```python arcade_start.py```
+As the paint balls fall towards you, hit the correct sequence of buttons (when the paint ball hits the red line). Make sure the paintbrush is in the correct lane to hit the paint.
+Blue = a
+Yellow = s
+Red = d 
+Combining keystrokes mixes the colours together to make green, purple, orange, and brown.
 
 ## Ideas
 
@@ -47,6 +55,6 @@ So far we have:
  
 ## ✍️ Authors <a name = "authors"></a>
 [@CindyU-beep](https://github.com/CindyU-beep): Cindy Um
-[@ConnorSapphire](https://github.com/ConnorSapphire): Connor Sapphire 
+[@ConnorSapphire](https://github.com/ConnorSapphire): Connor Smith 
 [@lyliux](https://github.com/lyliux): Holly Trikilis
 [@Zarlden](https://github.com/Zarlden): Damon Lam 

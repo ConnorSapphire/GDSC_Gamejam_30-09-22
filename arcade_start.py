@@ -42,18 +42,29 @@ class MyGame(arcade.Window):
         # Physics/movement
         self.physics_engine = None
 
+        #background
+        self.background = None
+
     def setup(self) -> None:
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
-        # self.beatmap = {9:(Colours.BLUE, 3), 5:(Colours.PURPLE, 2), 
-        #                 7:(Colours.RED, 1), 8:(Colours.GREEN, 1)}
         self.beatmap = {5:(Colours.BLUE, 3), 7:(Colours.RED, 2),
                         8:(Colours.YELLOW, 1), 9:(Colours.YELLOW, 1),
                         10:(Colours.BLUE, 4), 11:(Colours.RED, 3),
                         12:(Colours.YELLOW, 2),
                         13:(Colours.GREEN, 0), 15:(Colours.PURPLE, 1),
-                        17:(Colours.ORANGE, 1), 19:(Colours.BROWN, 1)}
+                        17:(Colours.ORANGE, 2), 19:(Colours.BROWN, 4), 
+                        20:(Colours.RED, 0), 21:(Colours.BLUE, 4), 
+                        22:(Colours.YELLOW, 2), 23:(Colours.BROWN, 2),
+                        24:(Colours.RED, 0), 25:(Colours.ORANGE, 0), 
+                        26:(Colours.BLUE, 4), 27:(Colours.PURPLE, 4), 
+                        28:(Colours.YELLOW, 2), 29:(Colours.GREEN, 2), 
+                        30:(Colours.BROWN, 1), 31:(Colours.BROWN, 3), 
+                        32:(Colours.ORANGE, 0), 33:(Colours.PURPLE, 1), 
+                        34:(Colours.ORANGE, 4), 35:(Colours.GREEN, 3), 
+                        36:(Colours.RED, 2), 37:(Colours.YELLOW, 2), 
+                        38:(Colours.BLUE, 2), 39:(Colours.BROWN, 2)}
 
         # Logic management
         self.beat_manager = BeatManager()
@@ -80,6 +91,9 @@ class MyGame(arcade.Window):
         # Tutorial
         self.user_interface = UserInterface()
         
+        #Background
+        self.background = arcade.load_texture("./background.png")
+
 
 
         # Testing area
@@ -124,6 +138,9 @@ class MyGame(arcade.Window):
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10, constants.SCREEN_HEIGHT-20, arcade.color.WHITE, 20, font_name="Kenney Pixel")
 
+        #Draw Background
+        arcade.draw_lrwh_rectangle_textured(0, 0,constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, self.background)
+
         # Draws the lanes for the beats to spawn in
 
         self.beat_manager.draw_lanes()
@@ -135,6 +152,7 @@ class MyGame(arcade.Window):
             self.user_interface.tutorial()
         elif self.hit_score >= 0:
             self.display_score_comment()
+
 
     def on_update(self, delta_time):
         """

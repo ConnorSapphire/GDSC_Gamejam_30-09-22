@@ -48,12 +48,12 @@ class MyGame(arcade.Window):
 
         # Scene
         self.scene = arcade.Scene()
-        self.scene.add_sprite_list("Player")
-        self.scene.add_sprite_list("Beats", use_spatial_hash=True)
+        self.scene.add_sprite_list(constants.PLAYER_LAYER)
+        self.scene.add_sprite_list(constants.BEAT_LAYER, use_spatial_hash=True)
 
         # Player setup
         self.player = Player("./sprites/tmp_player.png", constants.PLAYER_SCALING, 3)
-        self.scene.add_sprite("Player", self.player)
+        self.scene.add_sprite(constants.PLAYER_LAYER, self.player)
 
         # Testing area
 
@@ -61,12 +61,12 @@ class MyGame(arcade.Window):
         for i in range(3):
             # Lanes indexed at 0
             beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
-            self.scene.add_sprite("Beats", beat_to_add)
+            self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
 
         # Physics engine
         # NOTE has to go after everything else is initialised
         self.physics_engine = arcade.PhysicsEngineSimple(
-            self.player, self.scene.get_sprite_list("Beats"))
+            self.player, self.scene.get_sprite_list(constants.BEAT_LAYER))
 
         self.beat_manager = BeatManager()
 
@@ -97,7 +97,7 @@ class MyGame(arcade.Window):
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
-        beats = self.scene.get_sprite_list("Beats")
+        beats = self.scene.get_sprite_list(constants.BEAT_LAYER)
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
             if (beats.__len__() > 0):

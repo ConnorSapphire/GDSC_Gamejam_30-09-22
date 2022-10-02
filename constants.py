@@ -11,6 +11,10 @@ BEAT_SCALING = 1
 BEAT_WIDTH = 50
 BEAT_HEIGHT = 50
 
+# Scence names
+BEAT_LAYER = "Beats"
+PLAYER_LAYER = "Player"
+
 # Relating to board/positions of things
 LANE_START = 200
 LANE_SIZE = 100

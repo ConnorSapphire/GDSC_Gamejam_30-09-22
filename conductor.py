@@ -1,5 +1,6 @@
 import constants
 import arcade
+import math
 from colours import Colours
 from beat import Beat
 from typing import List
@@ -29,18 +30,15 @@ class Conductor:
         self.set_new_note_timing(0)
 
     def set_new_note_timing(self, value):
-        self.timing = self.crotchet * (9+value / 4)
+        self.timing = self.crotchet * ((9 + value) / 4)
         self.wait_time = self.timing - constants.BEAT_WAIT
-        self.beat_counter = self.song_position % self.crotchet
 
     def set_offset(self, offset):
         self.offset = offset
 
     def update_song_position(self):
         self.song_position = self.song.get_stream_position(self.song_player) - self.offset
-
-    def next_beat(self):
-        self.beat_counter += 1
+        self.beat_counter = math.floor(self.song_position / self.crotchet)
 
     def play(self):
         # if not self.song.is_playing(self):

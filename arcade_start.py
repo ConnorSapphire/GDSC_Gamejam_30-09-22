@@ -79,6 +79,7 @@ class MyGame(arcade.Window):
         self.conductor.play()
 
         self.created = False
+        self.read = 0
 
 
     def on_draw(self):
@@ -106,8 +107,13 @@ class MyGame(arcade.Window):
 
         self.scene.update()
         self.conductor.update_song_position()
-        print(self.conductor.song_position)
         # self.physics_engine.update()
+
+        # print(self.conductor.song_position)
+        # print(self.conductor.timing)
+
+        if self.read < self.conductor.beat_counter:
+            self.created = False
 
         beat_info = self.read_beatmap(self.beatmap)
         if beat_info is not None:
@@ -122,10 +128,8 @@ class MyGame(arcade.Window):
 
     def read_beatmap(self, beatmap):
         if self.conductor.beat_counter in beatmap:
-            self.created = False
-            self.conductor.next_beat()
-
             self.conductor.set_new_note_timing(self.conductor.beat_counter)
+            self.read = self.conductor.beat_counter
             return self.beatmap.get(self.conductor.beat_counter)
 
         return None

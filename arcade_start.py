@@ -20,7 +20,7 @@ from beat_manager import BeatManager
 from perfect_line import PerfectLine
 from conductor import Conductor
 from colourwheel import ColourWheel
-
+from user_interface import UserInterface
 
 class MyGame(arcade.Window):
     """
@@ -68,6 +68,11 @@ class MyGame(arcade.Window):
         self.perfect_line = PerfectLine("./sprites/perfect_line.png", constants.PERFECT_LINE_SCALING)
         self.scene.add_sprite(constants.PERFECT_LINE_LAYER, self.perfect_line)
 
+        # Tutorial
+        self.user_interface = UserInterface()
+        
+
+
         # Testing area
 
         # Testing initial random seleciton of beats
@@ -102,6 +107,8 @@ class MyGame(arcade.Window):
         # Call draw() on all your sprite lists below
 
         # Draws the lanes for the beats to spawn in
+        self.user_interface.tutorial()
+
         self.beat_manager.draw_lanes()
         #NOTE disabling for now -- aim to replace with a sprite
         # self.beat_manager.draw_perfect_line()

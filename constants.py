@@ -1,6 +1,7 @@
 # Setup of the window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+GAME_NAME = "Rhythm Game" #TODO
 SCREEN_TITLE = "Starting Template"
 FPS = 60
 

@@ -3,6 +3,12 @@ from enum import Enum
 
 class Colours(Enum):
     BLUE = "./sprites/blue_beat.png"
+    YELLOW = "./sprites/yellow_beat.png"
+    RED = "./sprites/red_beat.png"
+    GREEN = "./sprites/green_beat.png"
+    ORANGE = "./sprites/orange_beat.png"
+    PURPLE = "./sprites/purple_beat.png"
+    BROWN = "./sprites/brown_beat.png"
 
 # TODO
 # Colour mixing algorithm using the reverse-bayesan type formula

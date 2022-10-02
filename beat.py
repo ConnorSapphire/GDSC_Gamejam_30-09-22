@@ -22,16 +22,20 @@ class Beat(arcade.Sprite):
 
         # self.sprite.velocity = (0, -constants.BEAT_SPEED)
 
-    def hit(self):
+    def hit(self, colour):
         if (self.center_y <= constants.PERFECT_LINE_Y + (constants.BEAT_HEIGHT / 2) and self.center_y >= constants.PERFECT_LINE_Y - (constants.BEAT_HEIGHT / 2)):
-            difference = abs(self.center_y - constants.PERFECT_LINE_Y)
-            segment_length = (constants.BEAT_HEIGHT / 2) / constants.PERFECT_SCORE
-            score = abs(math.floor(difference / segment_length) - constants.PERFECT_SCORE)
-            # Return no from 1 - 5 (5 being dead center, 1 being outer edge)
-            # NB - will return 0 if the very edge pixel is hit
-            return score
+            if self.colour == Colours.BLUE and colour == 1:
+                difference = abs(self.center_y - constants.PERFECT_LINE_Y)
+                segment_length = (constants.BEAT_HEIGHT / 2) / constants.PERFECT_SCORE
+                score = abs(math.floor(difference / segment_length) - constants.PERFECT_SCORE)
+                # Return no from 1 - 5 (5 being dead center, 1 being outer edge)
+                # NB - will return 0 if the very edge pixel is hit
+                self.kill()
+                return score
+            else:
+                self.kill()
+                return 0
         else:
-            self.kill()
             return 0
 
     def update(self):

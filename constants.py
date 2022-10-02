@@ -22,6 +22,7 @@ PLAYER_MOVEMENT_SPEED = 5
 BEAT_SPEED = 1
 
 # Relating to scoring
+KEYSTROKE_WAIT = 3
 PERFECT_SCORE = 5
 
 # Colours

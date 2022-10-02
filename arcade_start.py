@@ -17,6 +17,8 @@ from beat import Beat
 from colours import Colours
 from player import Player
 from beat_manager import BeatManager
+from perfect_line import PerfectLine
+from conductor import Conductor
 
 
 class MyGame(arcade.Window):
@@ -30,7 +32,6 @@ class MyGame(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
-
         arcade.set_background_color(arcade.color.AMAZON)
 
         # Scene
@@ -48,12 +49,17 @@ class MyGame(arcade.Window):
 
         # Scene
         self.scene = arcade.Scene()
-        self.scene.add_sprite_list("Player")
-        self.scene.add_sprite_list("Beats", use_spatial_hash=True)
+        self.scene.add_sprite_list(constants.PLAYER_LAYER)
+        self.scene.add_sprite_list(constants.BEAT_LAYER, use_spatial_hash=True)
+        self.scene.add_sprite_list(constants.PERFECT_LINE_LAYER, use_spatial_hash=True)
 
         # Player setup
         self.player = Player("./sprites/tmp_player.png", constants.PLAYER_SCALING, 3)
-        self.scene.add_sprite("Player", self.player)
+        self.scene.add_sprite(constants.PLAYER_LAYER, self.player)
+
+        # Perfect line
+        self.perfect_line = PerfectLine("./sprites/perfect_line.png", constants.PERFECT_LINE_SCALING)
+        self.scene.add_sprite(constants.PERFECT_LINE_LAYER, self.perfect_line)
 
         # Testing area
 
@@ -61,14 +67,23 @@ class MyGame(arcade.Window):
         for i in range(3):
             # Lanes indexed at 0
             beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
-            self.scene.add_sprite("Beats", beat_to_add)
+            self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
+
+        self.conductor = Conductor()
+        self.conductor.set_song(arcade.Sound("music/clappingtrio.wav", streaming=True))
+        # change this eventually to some sort of file reading system
+        self.conductor.set_bpm(117.0) 
 
         # Physics engine
         # NOTE has to go after everything else is initialised
         self.physics_engine = arcade.PhysicsEngineSimple(
-            self.player, self.scene.get_sprite_list("Beats"))
+            self.player, self.scene.get_sprite_list(constants.BEAT_LAYER))
 
         self.beat_manager = BeatManager()
+
+        self.conductor.play()
+
+
 
     def on_draw(self):
         """
@@ -81,7 +96,8 @@ class MyGame(arcade.Window):
 
         # Draws the lanes for the beats to spawn in
         self.beat_manager.draw_lanes()
-        self.beat_manager.draw_perfect_line()
+        #NOTE disabling for now -- aim to replace with a sprite
+        # self.beat_manager.draw_perfect_line()
         self.scene.draw()
 
     def on_update(self, delta_time):
@@ -92,33 +108,40 @@ class MyGame(arcade.Window):
         """
 
         self.scene.update()
+        self.conductor.update_song_position()
+        # print(self.conductor.song_position)
         # self.physics_engine.update()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
-        beats = self.scene.get_sprite_list("Beats")
+        pline_collisions = (arcade.check_for_collision_with_list(self.perfect_line, self.scene.get_sprite_list(constants.BEAT_LAYER)))
+        beats = self.scene.get_sprite_list(constants.BEAT_LAYER)
 
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
-            if (beats.__len__() > 0):
+            if (beats.__len__() > 0 and pline_collisions.__len__() > 0):
+
                 hit_beat = beat_in_lane(self, self.player.lane, beats)
                 if hit_beat is not None:
-                    beats.remove(hit_beat)
+                    print("Perfect!")
+                    for beat in pline_collisions:
+                        if (type(beat) == Beat):
+                            #WARNING WIP
+                            pass
+
                     hit_score = hit_beat.hit()
-                    if (hit_score > 0):
-                        # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                        pass
+                    beats.remove(hit_beat)
+                    # self.scene.get_sprite_list(constants.BEAT_LAYER).remove(pline_collisions[0])
+                    # THIS ONE ^^^^
+
 
         elif key == arcade.key.DOWN or key == arcade.key.S:
             if (beats.__len__() > 0):
-                hit_beat = beat_in_lane(self, self.player.lane, beats)
-                if hit_beat is not None:
-                    beats.remove(hit_beat)
-                    hit_score = hit_beat.hit()
-                    if (hit_score > 0):
-                        # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                        pass
+                # hit_score = beats.pop(0).hit()
+                # if (hit_score > 0):
+                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
+                    pass
 
         elif key == arcade.key.LEFT or key == arcade.key.A:
             self.player.change_lane(-1)
@@ -141,7 +164,7 @@ class MyGame(arcade.Window):
 
 def beat_in_lane(self, lane, beats) -> Beat:
     """ Checks if any beats are in a given lane and returns the first one"""
-    
+
     for beat in beats:
         if beat.lane == lane:
             return beat

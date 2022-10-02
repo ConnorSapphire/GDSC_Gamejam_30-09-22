@@ -37,6 +37,7 @@ PLAYER_START_Y = 40
 
 PLAYER_MOVEMENT_SPEED = 5
 BEAT_SPEED = 2
+
 BEAT_WAIT = 4
 
 # Relating to scoring

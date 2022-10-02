@@ -13,7 +13,7 @@ class Beat(arcade.Sprite):
         self.colour = colour
 
         # WARNING magic number
-        self.sprite_y = constants.SCREEN_HEIGHT - 40
+        self.sprite_y = constants.SCREEN_HEIGHT - 20
         self.sprite_x = constants.LANE_START + constants.LANE_SIZE * lane
 
         # self.sprite = arcade.Sprite(colour.value, constants.BEAT_SCALING)
@@ -41,3 +41,11 @@ class Beat(arcade.Sprite):
 
         # Otherwise move down
         self.center_y -= constants.BEAT_SPEED
+
+    # def move(self, crotchet_legnth)
+    #     # If reaches end of screen
+    #     if self.center_y < 0:
+    #         self.kill()
+
+    #     # Otherwise move down
+    #     self.center_y -= crotchet_legnth

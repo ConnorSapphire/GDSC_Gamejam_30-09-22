@@ -5,7 +5,6 @@ import constants
 
 class UserInterface:
     def __init__(self) -> None:
-        pass
         self.tutorial_done = False
         self.starttime = time.time()
         self.message_idx = 0

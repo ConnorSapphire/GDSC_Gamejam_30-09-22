@@ -108,6 +108,8 @@ class MyGame(arcade.Window):
 
         # Scoring
         self.score = 0
+        self.hit_score = -1
+        self.score_comment_timer = 0
 
     def on_draw(self) -> None:
         """
@@ -120,7 +122,7 @@ class MyGame(arcade.Window):
 
         #draws the score
         score_text = f"Score: {self.score}"
-        arcade.draw_text(score_text,10,constants.SCREEN_HEIGHT-20)
+        arcade.draw_text(score_text, 10, constants.SCREEN_HEIGHT-20, arcade.color.WHITE, 20, font_name="Kenney Pixel")
 
         # Draws the lanes for the beats to spawn in
 
@@ -131,6 +133,8 @@ class MyGame(arcade.Window):
 
         if (self.user_interface.tutorial_done == False):
             self.user_interface.tutorial()
+        elif self.hit_score >= 0:
+            self.display_score_comment()
 
     def on_update(self, delta_time):
         """
@@ -154,6 +158,7 @@ class MyGame(arcade.Window):
             for beat in beats_in_lane:
                 hit_score += beat.hit(self.hit_colour)
             self.score += hit_score
+            self.hit_score = hit_score
             self.hit_colour = 0
         
         # Update scene including all beats and player
@@ -177,6 +182,25 @@ class MyGame(arcade.Window):
 
             beat_info = None
 
+    def display_score_comment(self):
+        score_comment = ""
+        if self.hit_score == 5:
+            score_comment = "PERFECT!!!"
+        elif self.hit_score == 4:
+            score_comment = "Amazing!"
+        elif self.hit_score == 3:
+            score_comment = "Well Done!"
+        elif self.hit_score == 2:
+            score_comment = "Nice"
+        elif self.hit_score == 1:
+            score_comment = "Acceptable"
+        elif self.hit_score == 0:
+            score_comment = "MISS"
+        arcade.draw_text(score_comment, constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, arcade.color.WHITE, 30, font_name="Kenney Pixel", anchor_x="center", anchor_y="center")
+        self.score_comment_timer += 1
+        if (self.score_comment_timer >= constants.SCORE_COMMENT_WAIT):
+            self.hit_score = -1
+            self.score_comment_timer = 0
 
     def read_beatmap(self, beatmap):
         if self.conductor.beat_counter in beatmap:

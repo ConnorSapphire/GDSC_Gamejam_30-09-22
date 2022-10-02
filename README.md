@@ -1,5 +1,12 @@
 # GDSC_Gamejam_30-09-22
 
+## Game Instructions
+1. install python arcade
+  <p> pip3 install arcade </p>
+  
+2. run
+  <p> python3 start_arcade.py </p>
+
 ## Inspiration
 We were inspired by the game Rhythm Heaven. We initially settled on mixing colours pretty early on, and wanted to make something paint shop themed. We weren't sure how we could make that work with Rhythm Heaven, but we couldn't get the idea out of our heads. So we tried our best to merge the two ideas and create something unique.
 
@@ -46,7 +53,7 @@ So far we have:
 - Music: https://www.youtube.com/watch?v=K_sk82MgSK8 
  
 ## ✍️ Authors <a name = "authors"></a>
-[@CindyU-beep](https://github.com/CindyU-beep): Cindy Um
-[@ConnorSapphire](https://github.com/ConnorSapphire): Connor Sapphire 
-[@lyliux](https://github.com/lyliux): Holly Trikilis
-[@Zarlden](https://github.com/Zarlden): Damon Lam 
+![@CindyU-beep](https://github.com/CindyU-beep): Cindy Um
+![@ConnorSapphire](https://github.com/ConnorSapphire): Connor Sapphire 
+![@lyliux](https://github.com/lyliux): Holly Trikilis
+![@Zarlden](https://github.com/Zarlden): Damon Lam 

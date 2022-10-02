@@ -81,7 +81,7 @@ class MyGame(arcade.Window):
         self.scene.add_sprite(constants.UI_LAYER, self.colour_wheel)
 
         # Player setup
-        self.player = Player("./sprites/tmp_player.png", constants.PLAYER_SCALING, 3)
+        self.player = Player(constants.BLUE_PLAYER, constants.PLAYER_SCALING, 3)
         self.scene.add_sprite(constants.PLAYER_LAYER, self.player)
 
         # Perfect line
@@ -167,7 +167,9 @@ class MyGame(arcade.Window):
         if (self.wait_time >= constants.KEYSTROKE_WAIT):
             self.wait_time = 0
             self.is_wait = False
-            # TODO check beat in lane:
+            # if (self.hit_colour == constants.RED):
+            #     lane = self.player.lane
+            #     self.player = Player(constants.RED_PLAYER, constants.PLAYER_SCALING, lane)
             beats_in_lane = list(())
             for beat in beats:
                 if (beat.lane == self.player.lane):

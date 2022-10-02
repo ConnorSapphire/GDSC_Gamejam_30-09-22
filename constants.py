@@ -54,3 +54,12 @@ PURPLE = 5
 ORANGE = 6
 BROWN = 7
 SQUARE_BEAT_DIMS = 78
+
+# Players
+BLUE_PLAYER = "./sprites/blue_player.png"
+RED_PLAYER = "./sprites/red_player.png"
+YELLOW_PLAYER = "./sprites/yellow_player.png"
+ORANGE_PLAYER = "./sprites/orange_player.png"
+PURPLE_PLAYER = "./sprites/purple_player.png"
+GREEN_PLAYER = "./sprites/green_player.png"
+BROWN_PLAYER = "./sprites/brown_player.png"

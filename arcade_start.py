@@ -113,7 +113,8 @@ class MyGame(arcade.Window):
         # self.beat_manager.draw_perfect_line()
         self.scene.draw()
         
-        self.user_interface.tutorial()
+        if (self.user_interface.tutorial_done == False):
+            self.user_interface.tutorial()
 
     def on_update(self, delta_time):
         """

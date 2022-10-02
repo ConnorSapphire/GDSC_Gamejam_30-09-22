@@ -112,6 +112,7 @@ class MyGame(arcade.Window):
         # print(self.conductor.song_position)
         # self.physics_engine.update()
 
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
@@ -123,18 +124,24 @@ class MyGame(arcade.Window):
 
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
-            if (beats.__len__() > 0):
+           if (beats.__len__() > 0):
                 hit_beat = beat_in_lane(self.player.lane, beats)
-                if pline_collisions.__contains__(hit_beat):
+                if hit_beat is not None and pline_collisions.__contains__(hit_beat):
                     print("HIT")
                     beats.remove(hit_beat)
+                    # Records the score
                     hit_score = hit_beat.hit()
                     if (hit_score > 0):
                         # TODO increase bucket and record hit score to calculate overall score out of five at end of round
                         pass
 
+
         elif key == arcade.key.DOWN or key == arcade.key.S:
-            pass
+            if (beats.__len__() > 0):
+                # hit_score = beats.pop(0).hit()
+                # if (hit_score > 0):
+                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
+                    pass
 
         elif key == arcade.key.LEFT or key == arcade.key.A:
             self.player.change_lane(-1)

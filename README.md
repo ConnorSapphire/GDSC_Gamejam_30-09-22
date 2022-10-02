@@ -20,19 +20,6 @@ We learned so much! This was everyone's first time using Python Arcade, so we we
 ## What's next for Paint Treble
 If we decide to continue working on this project, I think we'd like to hone the art style to better represent the game. Incorporate new songs, and possibly divide the game into levels.
 
-## Links
-
-- [Excalidraw idea board](https://excalidraw.com/#room=b1b331cdc14bf105071c,3ENxMURdof3BfPm86YKy8Q)
-
-### Inspiration
-
-- Rhythm tengoku
-- Rhythm heaven fever
-
-## Theme
-
-- Two colours
-- On edge
 
 ## Ideas
 
@@ -53,7 +40,8 @@ So far we have:
   - Game settings are controlled by constants.py
   - The scene.draw() function draws everything in the current scene, after the previous frame is cleared by background
   
-  ## References
-  
-  
+  ## References 
+- [Excalidraw idea board](https://excalidraw.com/#room=b1b331cdc14bf105071c,3ENxMURdof3BfPm86YKy8Q)
+- Artwork: https://shubibubi.itch.io/
+- Music: https://www.youtube.com/watch?v=K_sk82MgSK8 
  

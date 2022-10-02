@@ -2,10 +2,10 @@
 
 ## Game Instructions
 1. install python arcade
-  <p> pip3 install arcade </p>
+  'pip3 install arcade'
   
-2. How to run the code
-  <p> python3 start_arcade.py </p>
+2. run
+  'python3 start_arcade.py'
 
 ## Inspiration
 We were inspired by the game Rhythm Heaven. We initially settled on mixing colours pretty early on, and wanted to make something paint shop themed. We weren't sure how we could make that work with Rhythm Heaven, but we couldn't get the idea out of our heads. So we tried our best to merge the two ideas and create something unique.

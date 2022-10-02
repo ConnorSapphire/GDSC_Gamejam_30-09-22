@@ -46,6 +46,8 @@ class MyGame(arcade.Window):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
+        self.beatmap = {0:(Colours.BLUE, 3), 5:(Colours.PURPLE, 2), 
+                        7:(Colours.RED, 1), 8:(Colours.GREEN, 1)}
 
         # Logic management
         self.beat_manager = BeatManager()
@@ -70,17 +72,11 @@ class MyGame(arcade.Window):
         self.scene.add_sprite(constants.PERFECT_LINE_LAYER, self.perfect_line)
 
         # Testing area
-
-        # Testing initial random seleciton of beats
-        for i in range(3):
-            # Lanes indexed at 0
-            beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
-            self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
-
         self.conductor = Conductor()
         self.conductor.set_song(arcade.Sound("music/clappingtrio.wav", streaming=True))
         # change this eventually to some sort of file reading system
-        self.conductor.set_bpm(117.0) 
+        self.conductor.set_bpm(117.0)
+        self.conductor.set_offset(3.0)
 
         # Physics engine
         # NOTE has to go after everything else is initialised
@@ -91,6 +87,8 @@ class MyGame(arcade.Window):
 
         self.conductor.play()
 
+        self.created = False
+        self.read = 0
 
         # Key inputs
         self.hit_colour = 0
@@ -146,10 +144,35 @@ class MyGame(arcade.Window):
         # Update scene including all beats and player
         self.scene.update()
         self.conductor.update_song_position()
-        # print(self.conductor.song_position)
         # self.physics_engine.update()
 
-    def on_key_press(self, key, modifiers) -> None:
+        # print(self.conductor.song_position)
+        # print(self.conductor.timing)
+
+        if self.read < self.conductor.beat_counter:
+            self.created = False
+
+        beat_info = self.read_beatmap(self.beatmap)
+        if beat_info is not None:
+            new_beat = self.beat_manager.update(self.conductor, self.read_beatmap(self.beatmap))
+
+            if new_beat is not None and not self.created:
+                self.scene.add_sprite(constants.BEAT_LAYER, new_beat)
+                self.created = True
+
+            beat_info = None
+
+
+    def read_beatmap(self, beatmap):
+        if self.conductor.beat_counter in beatmap:
+            self.conductor.set_new_note_timing(self.conductor.beat_counter)
+            self.read = self.conductor.beat_counter
+            return self.beatmap.get(self.conductor.beat_counter)
+
+        return None
+
+
+    def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
         if key == arcade.key.LEFT:
             self.player.change_lane(-1)

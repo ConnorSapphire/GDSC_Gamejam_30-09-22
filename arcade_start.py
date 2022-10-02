@@ -17,6 +17,7 @@ from beat import Beat
 from colours import Colours
 from player import Player
 from beat_manager import BeatManager
+from conductor import Conductor
 
 
 class MyGame(arcade.Window):
@@ -63,6 +64,11 @@ class MyGame(arcade.Window):
             beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
             self.scene.add_sprite("Beats", beat_to_add)
 
+        self.conductor = Conductor()
+        self.conductor.set_song(arcade.Sound("music/clappingtrio.wav", streaming=True))
+        # change this eventually to some sort of file reading system
+        self.conductor.set_bpm(117.0) 
+
         # Physics engine
         # NOTE has to go after everything else is initialised
         self.physics_engine = arcade.PhysicsEngineSimple(
@@ -70,9 +76,9 @@ class MyGame(arcade.Window):
 
         self.beat_manager = BeatManager()
 
-        self.music = arcade.Sound("music/clappingtrio.wav", streaming=True)
-        self.music.play()
-        
+        self.conductor.play()
+
+
 
     def on_draw(self):
         """

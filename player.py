@@ -8,8 +8,8 @@ class Player(arcade.Sprite):
         super().__init__(sprite_path, scaling)
 
         self.lane = lane
-        self.center_x = constants.PLAYER_START_Y
-        self.center_y = constants.LANE_START + constants.LANE_SIZE * lane
+        self.center_x = constants.LANE_START + constants.LANE_SIZE * lane
+        self.center_y = constants.PLAYER_START_Y
 
     def change_lane(self, lane: int) -> None:
         if (self.lane + lane) < 0 or (self.lane + lane) > 4:

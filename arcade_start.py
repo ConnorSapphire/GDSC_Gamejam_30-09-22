@@ -98,23 +98,30 @@ class MyGame(arcade.Window):
         """
 
         self.scene.update()
+
+
         # self.physics_engine.update()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
+        pline_collisions = (arcade.check_for_collision_with_list(self.perfect_line, self.scene.get_sprite_list(constants.BEAT_LAYER)))
         beats = self.scene.get_sprite_list(constants.BEAT_LAYER)
+
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
-            if (beats.__len__() > 0):
-                hit_score = beats.pop(0).hit()
-                if (hit_score > 0):
-                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                    pass
+            if (beats.__len__() > 0 and pline_collisions.__len__() > 0):
+                print("Perfect!")
+                for beat in pline_collisions:
+                    if (type(beat) == Beat):
+                #WARNING WIP
+                self.scene.get_sprite_list(constants.BEAT_LAYER).remove(pline_collisions[0])
+
+
         elif key == arcade.key.DOWN or key == arcade.key.S:
             if (beats.__len__() > 0):
-                hit_score = beats.pop(0).hit()
-                if (hit_score > 0):
+                # hit_score = beats.pop(0).hit()
+                # if (hit_score > 0):
                     # TODO increase bucket and record hit score to calculate overall score out of five at end of round
                     pass
         elif key == arcade.key.LEFT or key == arcade.key.A:

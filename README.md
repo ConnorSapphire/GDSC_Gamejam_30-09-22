@@ -4,7 +4,7 @@
 1. install python arcade
   <p> pip3 install arcade </p>
   
-2. run
+2. How to run the code
   <p> python3 start_arcade.py </p>
 
 ## Inspiration

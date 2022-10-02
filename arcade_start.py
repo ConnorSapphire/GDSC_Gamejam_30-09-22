@@ -42,6 +42,9 @@ class MyGame(arcade.Window):
         # Physics/movement
         self.physics_engine = None
 
+        #background
+        self.background = None
+
     def setup(self) -> None:
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
@@ -88,6 +91,9 @@ class MyGame(arcade.Window):
         # Tutorial
         self.user_interface = UserInterface()
         
+        #Background
+        self.background = arcade.load_texture("./background.png")
+
 
 
         # Testing area
@@ -130,6 +136,9 @@ class MyGame(arcade.Window):
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text,10,constants.SCREEN_HEIGHT-20)
 
+        #Draw Background
+        arcade.draw_lrwh_rectangle_textured(0, 0,constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, self.background)
+
         # Draws the lanes for the beats to spawn in
 
         self.beat_manager.draw_lanes()
@@ -139,6 +148,7 @@ class MyGame(arcade.Window):
 
         if (self.user_interface.tutorial_done == False):
             self.user_interface.tutorial()
+
 
     def on_update(self, delta_time):
         """

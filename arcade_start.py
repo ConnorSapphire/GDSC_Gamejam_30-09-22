@@ -98,21 +98,31 @@ class MyGame(arcade.Window):
         """Called whenever a key is pressed."""
 
         beats = self.scene.get_sprite_list("Beats")
+
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
             if (beats.__len__() > 0):
-                hit_score = beats.pop(0).hit()
-                if (hit_score > 0):
-                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                    pass
+                hit_beat = beat_in_lane(self, self.player.lane, beats)
+                if hit_beat is not None:
+                    beats.remove(hit_beat)
+                    hit_score = hit_beat.hit()
+                    if (hit_score > 0):
+                        # TODO increase bucket and record hit score to calculate overall score out of five at end of round
+                        pass
+
         elif key == arcade.key.DOWN or key == arcade.key.S:
             if (beats.__len__() > 0):
-                hit_score = beats.pop(0).hit()
-                if (hit_score > 0):
-                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                    pass
+                hit_beat = beat_in_lane(self, self.player.lane, beats)
+                if hit_beat is not None:
+                    beats.remove(hit_beat)
+                    hit_score = hit_beat.hit()
+                    if (hit_score > 0):
+                        # TODO increase bucket and record hit score to calculate overall score out of five at end of round
+                        pass
+
         elif key == arcade.key.LEFT or key == arcade.key.A:
             self.player.change_lane(-1)
+
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player.change_lane(1)
 
@@ -127,6 +137,13 @@ class MyGame(arcade.Window):
             pass
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             pass
+
+
+def beat_in_lane(self, lane, beats) -> Beat:
+    for beat in beats:
+        if beat.lane == lane:
+            return beat
+    return None
 
 
 def main():

@@ -12,6 +12,7 @@ python -m arcade.examples.starting_template
 from cgi import test
 import random
 import string
+import time
 import arcade
 import constants
 from beat import Beat
@@ -146,6 +147,11 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
+        #WARNING tmp
+        if self.conductor.song_position >= 4:
+            print("DONE")
+            self.game_over()
+
         # Determine if multiple keys are pressed
         if (self.is_wait):
             self.wait_time += 1
@@ -184,6 +190,22 @@ class MyGame(arcade.Window):
                 self.created = True
 
             beat_info = None
+
+    def game_over(self):
+        """
+        Called when the game is over.
+        """
+        arcade.draw_text("Song over!", constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2, arcade.color.WHITE, 20, font_name="Kenney Pixel", anchor_x="center", anchor_y="center")
+        arcade.draw_text(f"Your score was {self.score}", constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2 - 20, arcade.color.WHITE, 20, font_name="Kenney Pixel", anchor_x="center", anchor_y="center")
+        arcade.set_background_color(arcade.color.BLACK)
+        self.scene = None
+        arcade.start_render()
+        time.sleep(5)
+        # self.scene.remove_sprite_list_by_name(self.scene.get_sprite_list(constants.BEAT_LAYER))
+        # self.scene.remove_sprite_list_by_name(self.scene.get_sprite_list(constants.UI_LAYER))
+        # self.scene.remove_sprite_list_by_name(self.scene.get_sprite_list(constants.PLAYER_LAYER))
+        # self.scene.remove_sprite_list_by_name(self.scene.get_sprite_list(constants.PERFECT_LINE_LAYER))
+
 
 
     def read_beatmap(self, beatmap):
@@ -233,6 +255,8 @@ class MyGame(arcade.Window):
     #         if beat.lane == lane:
     #             return beat
     #     return None
+
+
 
 def main() -> None:
     """ Main function """

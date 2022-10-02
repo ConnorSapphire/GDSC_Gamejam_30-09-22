@@ -16,6 +16,7 @@ PERFECT_LINE_SCALING = 1
 BEAT_LAYER = "Beats"
 PLAYER_LAYER = "Player"
 PERFECT_LINE_LAYER = "Perfect Line"
+UI_LAYER = "UI"
 
 # Relating to board/positions of things
 LANE_START = 200

@@ -19,6 +19,7 @@ from player import Player
 from beat_manager import BeatManager
 from perfect_line import PerfectLine
 from conductor import Conductor
+from colourwheel import ColourWheel
 
 
 class MyGame(arcade.Window):
@@ -44,6 +45,7 @@ class MyGame(arcade.Window):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
+
         # Logic management
         self.beat_manager = BeatManager()
 
@@ -52,6 +54,11 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list(constants.PLAYER_LAYER)
         self.scene.add_sprite_list(constants.BEAT_LAYER, use_spatial_hash=True)
         self.scene.add_sprite_list(constants.PERFECT_LINE_LAYER, use_spatial_hash=True)
+        self.scene.add_sprite_list(constants.UI_LAYER, use_spatial_hash=True)
+
+        # Colour wheel
+        self.colour_wheel = ColourWheel("./sprites/colour_wheel.png", 0.2)
+        self.scene.add_sprite(constants.UI_LAYER, self.colour_wheel)
 
         # Player setup
         self.player = Player("./sprites/tmp_player.png", constants.PLAYER_SCALING, 3)
@@ -121,10 +128,9 @@ class MyGame(arcade.Window):
 
 
 
-
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
-           if (beats.__len__() > 0):
+            if (beats.__len__() > 0):
                 hit_beat = beat_in_lane(self.player.lane, beats)
                 if hit_beat is not None and pline_collisions.__contains__(hit_beat):
                     print("HIT")
@@ -148,6 +154,7 @@ class MyGame(arcade.Window):
 
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player.change_lane(1)
+        
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key."""

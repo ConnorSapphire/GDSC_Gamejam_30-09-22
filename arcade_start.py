@@ -57,7 +57,7 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list(constants.UI_LAYER, use_spatial_hash=True)
 
         # Colour wheel
-        self.colour_wheel = ColourWheel("./sprites/colour_wheel.png", 0.2)
+        self.colour_wheel = ColourWheel("./sprites/colour_wheel.png", 0.1)
         self.scene.add_sprite(constants.UI_LAYER, self.colour_wheel)
 
         # Player setup
@@ -112,7 +112,7 @@ class MyGame(arcade.Window):
         #NOTE disabling for now -- aim to replace with a sprite
         # self.beat_manager.draw_perfect_line()
         self.scene.draw()
-        
+
         if (self.user_interface.tutorial_done == False):
             self.user_interface.tutorial()
 

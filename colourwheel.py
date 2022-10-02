@@ -1,7 +1,7 @@
 import arcade
 import constants
 
-COLOUR_WHEEL_DIM = 512
+COLOUR_WHEEL_DIM = 1200
 
 class ColourWheel(arcade.Sprite):
     def __init__(self, sprite_path: str, scaling: int) -> None:

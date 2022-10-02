@@ -109,6 +109,10 @@ class MyGame(arcade.Window):
 
         # Call draw() on all your sprite lists below
 
+        #draws the score
+        score_text = f"Score: {self.score}"
+        arcade.draw_text(score_text,10,constants.SCREEN_HEIGHT-20)
+
         # Draws the lanes for the beats to spawn in
         self.beat_manager.draw_lanes()
         #NOTE disabling for now -- aim to replace with a sprite

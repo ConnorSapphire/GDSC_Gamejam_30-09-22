@@ -147,7 +147,7 @@ class MyGame(arcade.Window):
         # NOTE up and down should be mechanic keys -- grab and combine colours
         if key == arcade.key.UP or key == arcade.key.W:
             if (beats.__len__() > 0 and pline_collisions.__len__() > 0):
-                hit_beat = beat_in_lane(self, self.player.lane, beats)
+                hit_beat = beat_in_lane(self.player.lane, beats)
                 if hit_beat is not None and pline_collisions.__contains__(hit_beat):
                     print("Perfect!")
 
@@ -185,7 +185,7 @@ class MyGame(arcade.Window):
             pass
 
 
-def beat_in_lane(self, lane, beats) -> Beat:
+def beat_in_lane(lane, beats) -> Beat:
     """ Checks if any beats are in a given lane and returns the first one"""
 
     for beat in beats:

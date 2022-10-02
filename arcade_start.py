@@ -134,12 +134,13 @@ class MyGame(arcade.Window):
 
         # Call draw() on all your sprite lists below
 
-        #draws the score
+        #Draw Background
+        arcade.draw_lrwh_rectangle_textured(0, 0,constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, self.background)
+
+        #Draws the score
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10, constants.SCREEN_HEIGHT-20, arcade.color.WHITE, 20, font_name="Kenney Pixel")
 
-        #Draw Background
-        arcade.draw_lrwh_rectangle_textured(0, 0,constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, self.background)
 
         # Draws the lanes for the beats to spawn in
 

@@ -1,6 +1,7 @@
 # Setup of the window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+GAME_NAME = "Paint Treble" 
 SCREEN_TITLE = "Paint Treble"
 FPS = 60
 
@@ -11,6 +12,15 @@ BEAT_SCALING = 1
 BEAT_WIDTH = 50
 BEAT_HEIGHT = 50
 PERFECT_LINE_SCALING = 1
+
+# Tutorial
+KEY_LEFT = "left arrow"
+KEY_RIGHT = "right arrow"
+KEY_BLUE = "'a'"
+KEY_YELLOW = "'s'"
+KEY_RED = "'d'"
+MSG_DISPLAY_TIME = 3 # seconds
+
 
 # Scence names
 BEAT_LAYER = "Beats"
@@ -27,6 +37,7 @@ PLAYER_START_Y = 40
 
 PLAYER_MOVEMENT_SPEED = 5
 BEAT_SPEED = 2
+
 BEAT_WAIT = 4
 
 # Relating to scoring

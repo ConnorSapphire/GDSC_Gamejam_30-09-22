@@ -70,6 +70,10 @@ class MyGame(arcade.Window):
 
         self.beat_manager = BeatManager()
 
+        self.music = arcade.Sound("music/clappingtrio.wav", streaming=True)
+        self.music.play()
+        
+
     def on_draw(self):
         """
         Render the screen.
@@ -141,7 +145,7 @@ class MyGame(arcade.Window):
 
 def beat_in_lane(self, lane, beats) -> Beat:
     """ Checks if any beats are in a given lane and returns the first one"""
-    
+
     for beat in beats:
         if beat.lane == lane:
             return beat

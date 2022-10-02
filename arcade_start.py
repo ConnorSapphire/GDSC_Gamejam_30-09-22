@@ -102,6 +102,8 @@ class MyGame(arcade.Window):
         """
 
         self.scene.update()
+        self.conductor.update_song_position()
+        # print(self.conductor.song_position)
         # self.physics_engine.update()
 
     def on_key_press(self, key, modifiers):

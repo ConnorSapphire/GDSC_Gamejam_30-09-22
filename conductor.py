@@ -7,7 +7,8 @@ from typing import List
 class Conductor:
     def __init__(self):
         self.song = None
-        self.song_length = 0;
+        self.song_player = None
+        self.song_length = 0
         self.bpm = 0
         self.crotchet = 0
         self.offset = 0
@@ -25,11 +26,11 @@ class Conductor:
         self.offset = offset
 
     def update_song_position(self):
-        self.song_position = self.song.get_stream_position()
+        self.song_position = self.song.get_stream_position(self.song_player) - self.offset
 
     def play(self):
         # if not self.song.is_playing(self):
-        self.song.play()
+        self.song_player = self.song.play()
 
     def reset(self):
         self.song_position = 0

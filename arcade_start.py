@@ -44,6 +44,8 @@ class MyGame(arcade.Window):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
+        self.beatmap = {0:(Colours.BLUE, 3), 5:(Colours.BLUE, 2), 7:(Colours.BLUE, 1), 8:(Colours.BLUE, 1)}
+
         # Logic management
         self.beat_manager = BeatManager()
 
@@ -67,16 +69,6 @@ class MyGame(arcade.Window):
         # change this eventually to some sort of file reading system
         self.conductor.set_bpm(117.0)
 
-        # Testing initial random seleciton of beats
-        # for i in range(3):
-        #     # Lanes indexed at 0
-        #     beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
-        #     self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
-
-        # timing = self.conductor.crotchet * 9
-        # column_length =  self.perfect_line.center_y
-        # wait_time = timing - 4
-
         # Physics engine
         # NOTE has to go after everything else is initialised
         self.physics_engine = arcade.PhysicsEngineSimple(
@@ -85,6 +77,7 @@ class MyGame(arcade.Window):
         self.beat_manager = BeatManager()
 
         self.conductor.play()
+
         self.created = False
 
 
@@ -112,21 +105,30 @@ class MyGame(arcade.Window):
         """
 
         self.scene.update()
-        # for beat in self.scene.get_sprite_list(constants.BEAT_LAYER):
-        #     beat.move(self.conductor.crotchet)
         self.conductor.update_song_position()
         print(self.conductor.song_position)
         # self.physics_engine.update()
 
-        # # Testing initial random seleciton of beats
-        timing = self.conductor.crotchet * (9 / 4)
-        column_length =  self.perfect_line.center_y
-        wait_time = timing - constants.BEAT_WAIT
+        beat_info = self.read_beatmap(self.beatmap)
+        if beat_info is not None:
+            new_beat = self.beat_manager.update(self.conductor, self.read_beatmap(self.beatmap))
 
-        if self.conductor.song_position >= timing and not self.created:
-            self.created = True
-            beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
-            self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
+            if new_beat is not None and not self.created:
+                self.scene.add_sprite(constants.BEAT_LAYER, new_beat)
+                self.created = True
+
+            beat_info = None
+
+
+    def read_beatmap(self, beatmap):
+        if self.conductor.beat_counter in beatmap:
+            self.created = False
+            self.conductor.next_beat()
+
+            self.conductor.set_new_note_timing(self.conductor.beat_counter)
+            return self.beatmap.get(self.conductor.beat_counter)
+
+        return None
 
 
     def on_key_press(self, key, modifiers):

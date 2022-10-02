@@ -62,17 +62,20 @@ class MyGame(arcade.Window):
         self.scene.add_sprite(constants.PERFECT_LINE_LAYER, self.perfect_line)
 
         # Testing area
-
-        # Testing initial random seleciton of beats
-        for i in range(3):
-            # Lanes indexed at 0
-            beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
-            self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
-
         self.conductor = Conductor()
         self.conductor.set_song(arcade.Sound("music/clappingtrio.wav", streaming=True))
         # change this eventually to some sort of file reading system
-        self.conductor.set_bpm(117.0) 
+        self.conductor.set_bpm(117.0)
+
+        # Testing initial random seleciton of beats
+        # for i in range(3):
+        #     # Lanes indexed at 0
+        #     beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
+        #     self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
+
+        # timing = self.conductor.crotchet * 9
+        # column_length =  self.perfect_line.center_y
+        # wait_time = timing - 4
 
         # Physics engine
         # NOTE has to go after everything else is initialised
@@ -82,7 +85,7 @@ class MyGame(arcade.Window):
         self.beat_manager = BeatManager()
 
         self.conductor.play()
-
+        self.created = False
 
 
     def on_draw(self):
@@ -100,6 +103,7 @@ class MyGame(arcade.Window):
         # self.beat_manager.draw_perfect_line()
         self.scene.draw()
 
+
     def on_update(self, delta_time):
         """
         All the logic to move, and the game logic goes here.
@@ -108,9 +112,22 @@ class MyGame(arcade.Window):
         """
 
         self.scene.update()
+        # for beat in self.scene.get_sprite_list(constants.BEAT_LAYER):
+        #     beat.move(self.conductor.crotchet)
         self.conductor.update_song_position()
-        # print(self.conductor.song_position)
+        print(self.conductor.song_position)
         # self.physics_engine.update()
+
+        # # Testing initial random seleciton of beats
+        timing = self.conductor.crotchet * (9 / 4)
+        column_length =  self.perfect_line.center_y
+        wait_time = timing - constants.BEAT_WAIT
+
+        if self.conductor.song_position >= timing and not self.created:
+            self.created = True
+            beat_to_add = self.beat_manager.create_beat(Colours.BLUE, random.randint(0, constants.NUM_LANES - 1))
+            self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
+
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""

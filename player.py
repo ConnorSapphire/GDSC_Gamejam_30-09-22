@@ -19,5 +19,5 @@ class Player(arcade.Sprite):
         self.sprite_x = self.center_x + (constants.LANE_SIZE * lane)
         self.center_x = self.sprite_x
 
-    def update(self):
+    def update(self) -> None:
         pass

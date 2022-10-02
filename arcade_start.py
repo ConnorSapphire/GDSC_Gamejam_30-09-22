@@ -46,8 +46,14 @@ class MyGame(arcade.Window):
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
-        self.beatmap = {0:(Colours.BLUE, 3), 5:(Colours.PURPLE, 2), 
-                        7:(Colours.RED, 1), 8:(Colours.GREEN, 1)}
+        # self.beatmap = {9:(Colours.BLUE, 3), 5:(Colours.PURPLE, 2), 
+        #                 7:(Colours.RED, 1), 8:(Colours.GREEN, 1)}
+        self.beatmap = {5:(Colours.BLUE, 3), 7:(Colours.RED, 2),
+                        8:(Colours.YELLOW, 1), 9:(Colours.YELLOW, 1),
+                        10:(Colours.BLUE, 4), 11:(Colours.RED, 3),
+                        12:(Colours.YELLOW, 2),
+                        13:(Colours.GREEN, 0), 15:(Colours.PURPLE, 1),
+                        17:(Colours.ORANGE, 1), 19:(Colours.BROWN, 1)}
 
         # Logic management
         self.beat_manager = BeatManager()
@@ -81,7 +87,7 @@ class MyGame(arcade.Window):
         self.conductor.set_song(arcade.Sound("music/clappingtrio.wav", streaming=True))
         # change this eventually to some sort of file reading system
         self.conductor.set_bpm(117.0)
-        self.conductor.set_offset(3.0)
+        self.conductor.set_offset(1.0)
 
         # Physics engine
         # NOTE has to go after everything else is initialised

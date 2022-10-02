@@ -32,7 +32,6 @@ class BeatManager:
         # print(conductor.timing)
 
         if conductor.song_position >= conductor.timing:
-            print(beat_info)
             beat_to_add = self.create_beat(beat_info[0], beat_info[1])
             # self.scene.add_sprite(constants.BEAT_LAYER, beat_to_add)
             return beat_to_add

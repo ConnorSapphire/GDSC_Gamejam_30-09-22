@@ -17,6 +17,7 @@ from beat import Beat
 from colours import Colours
 from player import Player
 from beat_manager import BeatManager
+from perfect_line import PerfectLine
 
 
 class MyGame(arcade.Window):
@@ -44,7 +45,6 @@ class MyGame(arcade.Window):
 
         # Logic management
         self.beat_manager = BeatManager()
-        self.beat_manager.create_perfect_line()
 
         # Scene
         self.scene = arcade.Scene()
@@ -57,9 +57,7 @@ class MyGame(arcade.Window):
         self.scene.add_sprite(constants.PLAYER_LAYER, self.player)
 
         # Perfect line
-        self.perfect_line = arcade.Sprite("./sprites/perfect_line.png", constants.PERFECT_LINE_SCALING)
-        self.perfect_line.center_x = constants.SCREEN_WIDTH / 2
-        self.perfect_line.center_y = constants.PERFECT_LINE_Y
+        self.perfect_line = PerfectLine("./sprites/perfect_line.png", constants.PERFECT_LINE_SCALING)
         self.scene.add_sprite(constants.PERFECT_LINE_LAYER, self.perfect_line)
 
         # Testing area

@@ -45,3 +45,5 @@ So far we have:
 - Artwork: https://shubibubi.itch.io/
 - Music: https://www.youtube.com/watch?v=K_sk82MgSK8 
  
+ ✍️ Authors
+

@@ -15,8 +15,10 @@ class BeatManager:
             # Draw lane line
             arcade.draw_line(x, 0, x, constants.SCREEN_HEIGHT, arcade.color.BLACK, 2)
 
-    def draw_perfect_line(self):
-        arcade.draw_line(0, constants.PERFECT_LINE_Y, constants.SCREEN_WIDTH, constants.PERFECT_LINE_Y, arcade.color.RED, 5)
+    def create_perfect_line(self):
+        print(arcade.draw_line(constants.LANE_START, constants.PERFECT_LINE_Y, 600, constants.PERFECT_LINE_Y, arcade.color.BLACK, 2))
+        # arcade.draw_line(constants.LANE_START, constants.PERFECT_LINE_Y, constants.LANE_END, constants.PERFECT_LINE_Y, arcade.color.BLACK, 2)
+        # arcade.draw_line(0, constants.PERFECT_LINE_Y, constants.SCREEN_WIDTH, constants.PERFECT_LINE_Y, arcade.color.RED, 5)
 
     def create_beat(self, colour, lane):
         return Beat(Colours.BLUE, 1, colour, lane)

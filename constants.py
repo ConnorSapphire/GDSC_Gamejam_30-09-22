@@ -10,10 +10,12 @@ PLAYER_HEIGHT = 38
 BEAT_SCALING = 1
 BEAT_WIDTH = 50
 BEAT_HEIGHT = 50
+PERFECT_LINE_SCALING = 1
 
 # Scence names
 BEAT_LAYER = "Beats"
 PLAYER_LAYER = "Player"
+PERFECT_LINE_LAYER = "Perfect Line"
 
 # Relating to board/positions of things
 LANE_START = 200

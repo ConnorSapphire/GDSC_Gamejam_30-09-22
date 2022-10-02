@@ -30,7 +30,6 @@ class MyGame(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
-
         arcade.set_background_color(arcade.color.AMAZON)
 
         # Scene
@@ -45,15 +44,23 @@ class MyGame(arcade.Window):
 
         # Logic management
         self.beat_manager = BeatManager()
+        self.beat_manager.create_perfect_line()
 
         # Scene
         self.scene = arcade.Scene()
         self.scene.add_sprite_list(constants.PLAYER_LAYER)
         self.scene.add_sprite_list(constants.BEAT_LAYER, use_spatial_hash=True)
+        self.scene.add_sprite_list(constants.PERFECT_LINE_LAYER, use_spatial_hash=True)
 
         # Player setup
         self.player = Player("./sprites/tmp_player.png", constants.PLAYER_SCALING, 3)
         self.scene.add_sprite(constants.PLAYER_LAYER, self.player)
+
+        # Perfect line
+        self.perfect_line = arcade.Sprite("./sprites/perfect_line.png", constants.PERFECT_LINE_SCALING)
+        self.perfect_line.center_x = constants.SCREEN_WIDTH / 2
+        self.perfect_line.center_y = constants.PERFECT_LINE_Y
+        self.scene.add_sprite(constants.PERFECT_LINE_LAYER, self.perfect_line)
 
         # Testing area
 
@@ -81,7 +88,8 @@ class MyGame(arcade.Window):
 
         # Draws the lanes for the beats to spawn in
         self.beat_manager.draw_lanes()
-        self.beat_manager.draw_perfect_line()
+        #NOTE disabling for now -- aim to replace with a sprite
+        # self.beat_manager.draw_perfect_line()
         self.scene.draw()
 
     def on_update(self, delta_time):

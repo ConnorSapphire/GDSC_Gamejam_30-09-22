@@ -1,11 +1,26 @@
 # GDSC_Gamejam_30-09-22
 
+<div align="center">
+
+![image](https://user-images.githubusercontent.com/63568702/193442729-e0f5591b-cf8a-485b-93e1-bac6661ca910.png)
+
+</div>
+
 ## Game Instructions
 1. install python arcade
-  'pip3 install arcade'
+```pip3 install arcade```
   
 2. run
-  'python3 start_arcade.py'
+```python3 start_arcade.py```
+  
+## Tutorial
+Start the game using:
+```python arcade_start.py```
+As the paint balls fall towards you, hit the correct sequence of buttons (when the paint ball hits the red line). Make sure the paintbrush is in the correct lane to hit the paint.
+Blue = a
+Yellow = s
+Red = d 
+Combining keystrokes mixes the colours together to make green, purple, orange, and brown.
 
 ## Inspiration
 We were inspired by the game Rhythm Heaven. We initially settled on mixing colours pretty early on, and wanted to make something paint shop themed. We weren't sure how we could make that work with Rhythm Heaven, but we couldn't get the idea out of our heads. So we tried our best to merge the two ideas and create something unique.
@@ -27,14 +42,6 @@ We learned so much! This was everyone's first time using Python Arcade, so we we
 ## What's next for Paint Treble
 If we decide to continue working on this project, I think we'd like to hone the art style to better represent the game. Incorporate new songs, and possibly divide the game into levels.
 
-## Tutorial
-Start the game using:
-```python arcade_start.py```
-As the paint balls fall towards you, hit the correct sequence of buttons (when the paint ball hits the red line). Make sure the paintbrush is in the correct lane to hit the paint.
-Blue = a
-Yellow = s
-Red = d 
-Combining keystrokes mixes the colours together to make green, purple, orange, and brown.
   
   ## References 
 - [Excalidraw idea board](https://excalidraw.com/#room=b1b331cdc14bf105071c,3ENxMURdof3BfPm86YKy8Q)
@@ -43,6 +50,10 @@ Combining keystrokes mixes the colours together to make green, purple, orange, a
  
 ## ✍️ Authors <a name = "authors"></a>
 [@CindyU-beep](https://github.com/CindyU-beep): Cindy Um
+
 [@ConnorSapphire](https://github.com/ConnorSapphire): Connor Smith 
+
 [@lyliux](https://github.com/lyliux): Holly Trikilis
+
 [@Zarlden](https://github.com/Zarlden): Damon Lam 
+

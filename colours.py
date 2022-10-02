@@ -6,11 +6,11 @@ class Colours(Enum):
     """
     RED = "./sprites/red_beat.png"
     BLUE = "./sprites/blue_beat.png"
-    GREEN = "./sprites/green_beat.png"
-
     YELLOW = "./sprites/yellow_beat.png"
-    MAGENTA = "./sprites/purple_beat.png"
-    CYAN = "./sprites/cyan_beat.png"
+    GREEN = "./sprites/green_beat.png"
+    ORANGE = "./sprites/orange_beat.png"
+    PURPLE = "./sprites/purple_beat.png"
+    BROWN = "./sprites/brown_beat.png"
 
 # DEPRACATED
 # Colour mixing algorithm using the reverse-bayesan type formula

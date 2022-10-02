@@ -11,6 +11,7 @@ python -m arcade.examples.starting_template
 """
 from cgi import test
 import random
+import string
 import arcade
 import constants
 from beat import Beat
@@ -31,7 +32,7 @@ class MyGame(arcade.Window):
     with your own code. Don't leave 'pass' in this program.
     """
 
-    def __init__(self, width, height, title):
+    def __init__(self, width: int, height: int, title: string) -> None:
         super().__init__(width, height, title)
         arcade.set_background_color(arcade.color.AMAZON)
 
@@ -41,7 +42,7 @@ class MyGame(arcade.Window):
         # Physics/movement
         self.physics_engine = None
 
-    def setup(self):
+    def setup(self) -> None:
         """ Set up the game variables. Call to re-start the game. """
         # Create your sprites and sprite lists here
 
@@ -96,8 +97,15 @@ class MyGame(arcade.Window):
         self.conductor.play()
 
 
+        # Key inputs
+        self.hit_colour = 0
+        self.wait_time = 0
+        self.is_wait = False
 
-    def on_draw(self):
+        # Scoring
+        self.score = 0
+
+    def on_draw(self) -> None:
         """
         Render the screen.
         """
@@ -105,6 +113,10 @@ class MyGame(arcade.Window):
         self.clear()
 
         # Call draw() on all your sprite lists below
+
+        #draws the score
+        score_text = f"Score: {self.score}"
+        arcade.draw_text(score_text,10,constants.SCREEN_HEIGHT-20)
 
         # Draws the lanes for the beats to spawn in
 
@@ -122,72 +134,70 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-
+        # Determine if multiple keys are pressed
+        if (self.is_wait):
+            self.wait_time += 1
+        beats = self.scene.get_sprite_list("Beats")
+        if (self.wait_time >= constants.KEYSTROKE_WAIT):
+            self.wait_time = 0
+            self.is_wait = False
+            # TODO check beat in lane:
+            beats_in_lane = list(())
+            for beat in beats:
+                if (beat.lane == self.player.lane):
+                    beats_in_lane.append(beat)
+            hit_score = 0
+            for beat in beats_in_lane:
+                hit_score += beat.hit(self.hit_colour)
+            self.score += hit_score
+            self.hit_colour = 0
+        
+        # Update scene including all beats and player
         self.scene.update()
         self.conductor.update_song_position()
         # print(self.conductor.song_position)
         # self.physics_engine.update()
 
-
-    def on_key_press(self, key, modifiers):
+    def on_key_press(self, key, modifiers) -> None:
         """Called whenever a key is pressed."""
-
-        pline_collisions = (arcade.check_for_collision_with_list(self.perfect_line, self.scene.get_sprite_list(constants.BEAT_LAYER)))
-        beats = self.scene.get_sprite_list(constants.BEAT_LAYER)
-
-
-
-        # NOTE up and down should be mechanic keys -- grab and combine colours
-        if key == arcade.key.UP or key == arcade.key.W:
-            if (beats.__len__() > 0):
-                hit_beat = beat_in_lane(self.player.lane, beats)
-                if hit_beat is not None and pline_collisions.__contains__(hit_beat):
-                    print("HIT")
-                    beats.remove(hit_beat)
-                    # Records the score
-                    hit_score = hit_beat.hit()
-                    if (hit_score > 0):
-                        # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                        pass
-
-
-        elif key == arcade.key.DOWN or key == arcade.key.S:
-            if (beats.__len__() > 0):
-                # hit_score = beats.pop(0).hit()
-                # if (hit_score > 0):
-                    # TODO increase bucket and record hit score to calculate overall score out of five at end of round
-                    pass
-
-        elif key == arcade.key.LEFT or key == arcade.key.A:
+        if key == arcade.key.LEFT:
             self.player.change_lane(-1)
-
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
+        elif key == arcade.key.RIGHT:
             self.player.change_lane(1)
+        if key == arcade.key.A:
+            self.hit_colour += constants.BLUE
+            self.is_wait = True
+        if key == arcade.key.S:
+            self.hit_colour += constants.YELLOW
+            self.is_wait = True
+        if key == arcade.key.D:
+            self.hit_colour += constants.RED
+            self.is_wait = True
         
 
-    def on_key_release(self, key, modifiers):
-        """Called when the user releases a key."""
 
-        if key == arcade.key.UP or key == arcade.key.W:
-            pass
-        elif key == arcade.key.DOWN or key == arcade.key.S:
-            pass
-        elif key == arcade.key.LEFT or key == arcade.key.A:
-            pass
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
-            pass
+    # def on_key_release(self, key, modifiers):
+    #     """Called when the user releases a key."""
 
-
-def beat_in_lane(lane, beats) -> Beat:
-    """ Checks if any beats are in a given lane and returns the first one"""
-
-    for beat in beats:
-        if beat.lane == lane:
-            return beat
-    return None
+    #     if key == arcade.key.UP or key == arcade.key.W:
+    #         pass
+    #     elif key == arcade.key.DOWN or key == arcade.key.S:
+    #         pass
+    #     elif key == arcade.key.LEFT or key == arcade.key.A:
+    #         pass
+    #     elif key == arcade.key.RIGHT or key == arcade.key.D:
+    #         pass
 
 
-def main():
+    # def beat_in_lane(lane, beats) -> Beat:
+    #     """ Checks if any beats are in a given lane and returns the first one"""
+
+    #     for beat in beats:
+    #         if beat.lane == lane:
+    #             return beat
+    #     return None
+
+def main() -> None:
     """ Main function """
     game = MyGame(constants.SCREEN_WIDTH,
                   constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)

@@ -1,8 +1,8 @@
 # Setup of the window
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-GAME_NAME = "Rhythm Game" #TODO
-SCREEN_TITLE = "Starting Template"
+GAME_NAME = "Paint Treble" 
+SCREEN_TITLE = "Paint Treble"
 FPS = 60
 
 PLAYER_SCALING = 2
@@ -39,8 +39,15 @@ PLAYER_MOVEMENT_SPEED = 5
 BEAT_SPEED = 2
 
 # Relating to scoring
+KEYSTROKE_WAIT = 3
 PERFECT_SCORE = 5
 
 # Colours
-# In pixels
+BLUE = 1
+YELLOW = 2
+GREEN = 3
+RED = 4
+PURPLE = 5
+ORANGE = 6
+BROWN = 7
 SQUARE_BEAT_DIMS = 78

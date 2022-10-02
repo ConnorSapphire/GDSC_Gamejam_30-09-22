@@ -5,10 +5,10 @@ from beat import Beat
 from typing import List
 
 class BeatManager:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
-    def draw_lanes(self):
+    def draw_lanes(self) -> None:
         for i in range(constants.NUM_LANES + 1):
             # Calculate x position for current lane line
             x = constants.LANE_START + constants.LANE_SIZE * i - constants.LANE_SIZE / 2
@@ -19,6 +19,8 @@ class BeatManager:
     #     print(arcade.draw_line(constants.LANE_START, constants.PERFECT_LINE_Y, 600, constants.PERFECT_LINE_Y, arcade.color.BLACK, 2))
         # arcade.draw_line(constants.LANE_START, constants.PERFECT_LINE_Y, constants.LANE_END, constants.PERFECT_LINE_Y, arcade.color.BLACK, 2)
         # arcade.draw_line(0, constants.PERFECT_LINE_Y, constants.SCREEN_WIDTH, constants.PERFECT_LINE_Y, arcade.color.RED, 5)
+    def draw_perfect_line(self) -> None:
+        arcade.draw_line(0, constants.PERFECT_LINE_Y, constants.SCREEN_WIDTH, constants.PERFECT_LINE_Y, arcade.color.RED, 5)
 
-    def create_beat(self, colour, lane):
-        return Beat(Colours.BLUE, 1, colour, lane)
+    def create_beat(self, colour: Colours, lane: int) -> None:
+        return Beat(colour, 1, colour, lane)
